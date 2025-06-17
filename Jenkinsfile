@@ -1,8 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'jdk17'  // Bạn phải cấu hình tên jdk17 này trong Jenkins -> Global Tool Configuration
+    environment {
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17.0.12'  // đường dẫn thật trên máy Jenkins
+        PATH = "${env.JAVA_HOME}\\bin;${env.PATH}"
     }
 
     stages {
