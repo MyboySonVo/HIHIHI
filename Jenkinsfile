@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'jdk17'  // Bạn phải cấu hình tên jdk17 này trong Jenkins -> Global Tool Configuration
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -29,7 +33,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Lọc bỏ file -plain.jar, chỉ lấy JAR thực thi chính
                     def jarFiles = findFiles(glob: 'build/libs/*.jar').findAll { !it.name.contains('-plain') }
 
                     if (jarFiles.isEmpty()) {
@@ -38,7 +41,7 @@ pipeline {
 
                     def jarPath = jarFiles[0].path
                     echo "🚀 Deploying JAR: ${jarPath}"
-                    bat "java -jar ${jarPath}"
+                    bat "java -jar \"${jarPath}\""
                 }
             }
         }
