@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-17.0.12'
+        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,7 +15,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Chạy bằng cmd (Windows)
                 bat 'gradlew.bat build'
             }
         }
